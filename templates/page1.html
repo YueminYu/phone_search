@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>子页面 - 查询</title>
+    <style>
+        body {
+            background-color: #f0f8ff; /* 淡蓝色背景 */
+            font-family: Arial, sans-serif;
+            text-align: center; /* 文本居中 */
+            padding: 40px; /* 页面的内边距 */
+        }
+        .container {
+            background-color: #fff; /* 白色背景 */
+            margin: auto; /* 水平居中 */
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 阴影效果 */
+            border-radius: 5px; /* 圆角 */
+            max-width: 400px; /* 最大宽度限制 */
+        }
+        label, input, button {
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 10px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #28a745; /* 绿色按钮 */
+            color: white;
+            border: none; /* 无边框 */
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse; /* 表格线合并 */
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd; /* 单元格边框 */
+        }
+        th {
+            background-color: #f0f0f0; /* 表头背景 */
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff; /* 蓝色按钮 */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>手机号段查询</h1>
+        <form method="POST">
+            <label for="phone">请输入手机号前7位：</label><br/>
+            <input type="text" id="phone" name="phone" required pattern="\d{7|11}"><br/>
+            <button type="submit">查询</button>
+        </form>
+    </div>
+
+    {% if phone %}
+        <h2>查询的手机号前7位：{{ phone }}</h2>
+    {% endif %}
+
+    {% if error %}
+    <p>错误：{{ error }}</p>
+    {% elif data %}
+    <table>
+        <tr><th>省份</th><th>城市</th><th>运营商</th><th>邮政编码</th><th>城市代码</th><th>区号</th></tr>
+        <tr>
+            <td>{{ data.province }}</td>
+            <td>{{ data.city }}</td>
+            <td>{{ data.isp }}</td>
+            <td>{{ data.post_code }}</td>
+            <td>{{ data.city_code }}</td>
+            <td>{{ data.area_code }}</td>
+        </tr>
+    </table>
+    {% endif %}
+    <a href="/">返回主页</a>
+</body>
+</html>
